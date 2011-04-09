@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-
 import unittest
 import mocker
 from nose.tools import assert_equals
@@ -13,17 +12,29 @@ class RafflerTestCase(unittest.TestCase):
         assert_equals(raffler.min, 1)
         assert_equals(raffler.max, 200)
 
-class UITestCase(mocker.MockerTestCase):
+class AndroidTestcase(mocker.MockerTestCase):
 
     def test_should_notify_user_of_the_raffled_number(self):
         "should notify user of the raffled number"
         number = 510
         droid = self.mocker.mock()
         droid.notify("O número sorteado foi: %d!" % number)
-        self.mocker.result("user notified")
         self.mocker.replay()
 
         from raffle import notify_raffled_number
         notify_raffled_number(droid, number)
 
+        self.mocker.verify()
+
+    def test_should_get_maximum_number_using_a_dialog_input(self):
+        "should get max number using a dialog input"
+        droid = self.mocker.mock()
+        droid.dialogGetResponse(mocker.ANY, mocker.ANY)
+        self.mocker.result(200)
+        self.mocker.replay()
+
+        from raffle import ask_maximum_number
+        max_number = ask_maximum_number(droid)
+
+        assert_equals(max_number, 200)
         self.mocker.verify()
