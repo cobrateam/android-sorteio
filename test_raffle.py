@@ -28,9 +28,13 @@ class AndroidTestcase(mocker.MockerTestCase):
 
     def test_should_get_maximum_number_using_a_dialog_input(self):
         "should get max number using a dialog input"
+        class DGR(object):
+            def __init__(self, result):
+                self.result = result
+
         droid = self.mocker.mock()
         droid.dialogGetResponse(mocker.ANY, mocker.ANY)
-        self.mocker.result(200)
+        self.mocker.result(DGR(result='200'))
         self.mocker.replay()
 
         from raffle import ask_maximum_number

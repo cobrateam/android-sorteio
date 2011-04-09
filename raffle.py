@@ -14,4 +14,4 @@ def notify_raffled_number(droid, number):
     droid.notify("O número sorteado foi: %d!" % number)
 
 def ask_maximum_number(droid):
-    return droid.dialogGetResponse("Número máximo", "Qual o número de inscritos?")
+    return int(droid.dialogGetResponse("Número máximo", "Qual o número de inscritos?").result)
