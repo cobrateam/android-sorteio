@@ -1,3 +1,5 @@
+# -*- coding: utf-8 -*-
+
 import unittest
 import mocker
 from nose.tools import assert_equals
@@ -13,8 +15,15 @@ class RafflerTestCase(unittest.TestCase):
 
 class UITestCase(mocker.MockerTestCase):
 
-    def tearDown(self):
-        self.mocker.reset()
+    def test_should_notify_user_of_the_raffled_number(self):
+        "should notify user of the raffled number"
+        number = 510
+        droid = self.mocker.mock()
+        droid.notify("O número sorteado foi: %d!" % number)
+        self.mocker.result("user notified")
+        self.mocker.replay()
 
-    def test_should_contain_a_button_for_raffle(self):
-        "should contain a button for raffle"
+        from raffle import notify_raffled_number
+        notify_raffled_number(droid, number)
+
+        self.mocker.verify()
