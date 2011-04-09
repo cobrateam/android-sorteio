@@ -21,4 +21,5 @@ class Android (object):
            def __init__ (self, result='???'):
                self.result = result
        print 'Android.dialogGetResponse ::', args, kwargs
-       return DGR ('OK')
+       result = kwargs['result'] if 'result' in kwargs else 'OK'
+       return DGR (result)
