@@ -33,8 +33,11 @@ class AndroidTestcase(mocker.MockerTestCase):
                 self.result = result
 
         droid = self.mocker.mock()
-        droid.dialogGetResponse(mocker.ANY, mocker.ANY)
+        droid.dialogCreateInput(mocker.ANY, mocker.ANY)
+        droid.dialogShow()
+        droid.dialogGetResponse()
         self.mocker.result(DGR(result='200'))
+        droid.dialogDismiss()
         self.mocker.replay()
 
         from raffle import ask_maximum_number
