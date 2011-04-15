@@ -32,11 +32,11 @@ def do_raffle(droid):
 
     response = { 'name' : 'do_raffle' }
     while response['name'] != 'exit':
-        response = droid.eventWait(10000).result
         droid.dialogDismiss()
         max_number = ask_maximum_number(droid)
         raffled_number = Raffler(min=1, max=max_number).raffle()
         notify_raffled_number(droid, raffled_number)
+        response = droid.eventWait(10000).result
 
 if __name__ == '__main__':
     droid = android.Android()
