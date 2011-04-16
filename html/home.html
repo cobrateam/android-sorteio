@@ -1,0 +1,20 @@
+<html>
+    <head>
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+        <title>Sorteio</title>
+        <script type="text/javascript" language="javascript" charset="utf-8">
+            var droid = new Android();
+            var raffle = function() {
+                droid.eventPost("raffle", document.getElementById("limit").value);
+            };
+        </script>
+        <style type="text/css" media="screen">
+        </style>
+    </head>
+    <body>
+        <div class="content">
+            <p><label for="limit">Inscritos:</label> <input type="text" name="inscritos" value="200" id="limit"/></p>
+            <p><input type="button" value="Sortear" onclick="raffle();" /></p>
+        </div>
+    </body>
+</html>

@@ -18,26 +18,11 @@ def notify_raffled_number(droid, number):
     droid.dialogSetPositiveButtonText("Ok")
     droid.dialogShow()
 
-def ask_maximum_number(droid):
-    droid.dialogCreateInput("Número máximo", "Qual o número de inscritos?", PADRAO)
-    droid.dialogSetPositiveButtonText("Sortear")
-    droid.diagloSetNegativeButtonText("Cancelar")
-    droid.dialogShow()
-    max_number =  int(droid.dialogGetResponse().result['value'])
-    return max_number
-
-def do_raffle(droid):
-    droid.addOptionsMenuItem("Novo sorteio", "do_raffle", None, "star_on")
-    droid.addOptionsMenuItem("Sair", "exit", None, "star_off")
-
-    response = { 'name' : 'do_raffle' }
-    while response['name'] != 'exit':
-        droid.dialogDismiss()
-        max_number = ask_maximum_number(droid)
-        raffled_number = Raffler(min=1, max=max_number).raffle()
-        notify_raffled_number(droid, raffled_number)
-        response = droid.eventWait(10000).result
-
 if __name__ == '__main__':
     droid = android.Android()
-    do_raffle(droid)
+    droid.webViewShow('file:///sdcard/sl4a/scripts/html/home.html')
+    while True:
+        result = droid.eventWaitFor('raffle').result
+        maximum = int(result['data'])
+        number = Raffler(1, maximum).raffle()
+        notify_raffled_number(droid, number)
