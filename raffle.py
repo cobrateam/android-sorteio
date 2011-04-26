@@ -2,8 +2,6 @@
 import android
 import random
 
-PADRAO = '200'
-
 class Raffler(object):
 
     def __init__(self, min, max):
