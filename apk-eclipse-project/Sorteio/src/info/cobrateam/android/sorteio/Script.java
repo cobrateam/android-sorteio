@@ -9,7 +9,7 @@ import android.content.res.Resources;
 
 public class Script {
 
-  public final static int ID = R.raw.script;
+  public final static int ID = R.raw.raffle;
 
   public static String sFileName;
 
